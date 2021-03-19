@@ -7,7 +7,7 @@ from ..db import db
 
 PREFIX = "+"
 OWNER_IDS = [241619682443001856]
-COGS = [path.split("\\")[-1][:-3] for path in glob("./libs/cogs/*.py")]
+COGS = ["aulas"]
 
 class Ready(object):
     def __init__(self):
