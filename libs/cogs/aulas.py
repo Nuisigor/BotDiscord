@@ -1,6 +1,7 @@
 from discord.ext.commands import Cog
 from discord.ext.commands import command
 from discord import Embed, File
+
 from ..db import db
 
 MEETLINK = "https://meet.google.com/"
@@ -12,12 +13,16 @@ class Aulas(Cog):
     @Cog.listener()
     async def on_ready(self):
         if not self.bot.ready:
-            self.bot.cogs_ready.ready_up("fun")
+            self.bot.cogs_ready.ready_up("aulas")
     
-    @command(name = "RegAula")
+    @command(name = "RegAula", aliases=['regaula'])
     async def register(self, ctx):
         message_content = ctx.message.content[9:]
         register_content = message_content.split(" ")
+        
+        register_content[0] = register_content[0].upper()
+        print(register_content)
+
 
         if len(register_content[0]) > 3 or register_content[1][0:24] != MEETLINK:
             embed= Embed(title='Não foi possível registrar aula', description='Verifique as instruções de como utilizar o bot', color=0x0011ff)
@@ -45,7 +50,7 @@ class Aulas(Cog):
             await ctx.send(embed=embed)
 
 
-    @command(name = "DelAula")
+    @command(name = "DelAula", aliases=['delaula'])
     async def deleteAula(self, ctx):
         if ctx.author.id == self.bot.owner_ids[0]:
             message_content = ctx.message.content[9:]
@@ -53,10 +58,11 @@ class Aulas(Cog):
             db.commit()
 
             embed = Embed(title=f"Aula {message_content} deletada do banco :thumbsup:", color=0xff0000)
+            embed.set_thumbnail(url=ctx.guild.icon_url)
             await ctx.send(embed=embed)
     
 
-    @command(name = "Aula", aliases=["Link"])
+    @command(name = "Aula", aliases=['Link','aula','link'])
     async def sendLinks(self, ctx):
         message_content = ctx.message.content[6:]
         if len(message_content) > 3:
@@ -71,13 +77,23 @@ class Aulas(Cog):
                 await ctx.send(embed=embed)
     
 
-    @command(name = "HelpAulas")
+    @command(name = "ListarAulas", aliases=['listaraulas','Listaraulas','listarAulas'])
+    async def listAulas(self, ctx):
+        embed= Embed(title="Lista de Aulas cadastradas", color=0xc800ff)
+        embed.set_thumbnail(url=ctx.guild.icon_url)
+
+        for aulaid in db.records('SELECT AulaID FROM Aulas'):
+            embed.add_field(name=f"{aulaid[0]}", value=f"+Aula {aulaid[0]}", inline=False)
+
+        await ctx.send(embed= embed)
+
+    @command(name = "HelpAulas", aliases=["helpaulas"])
     async def sendHelp(self, ctx):
         embed= Embed(title="Precisando de Ajuda?", description="Comandos do bot de aula", color=0xeeff00)
         embed.add_field(name="Registrar Aula", value="+RegAula Matéria LinkDoMeets", inline=False)
         embed.add_field(name="Procurar Aulas", value="+Aula Matéria", inline=False)
-        embed.set_footer(text="Futuramente pode ser adicionado mais funções")
         embed.set_thumbnail(url=ctx.guild.icon_url)
+        embed.set_footer(text="Futuramente pode ser adicionado mais funções")
         await ctx.send(embed=embed)
 
 

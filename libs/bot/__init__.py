@@ -5,9 +5,13 @@ from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord.ext.commands import Bot as BotBase
 from ..db import db
 
-PREFIX = "+"
+
+#If you want to use this bot on your server remember change the guild id
+
+PREFIX = "-"
 OWNER_IDS = [241619682443001856]
-COGS = ["aulas"]
+GUILD_ID = 750083596882018364
+COGS = ["aulas", "welcome"]
 
 class Ready(object):
     def __init__(self):
@@ -28,6 +32,7 @@ class Bot(BotBase):
         self.prefix = PREFIX
         self.ready = False
         self.cogs_ready = Ready()
+        self.guild = None
         self.scheduler = AsyncIOScheduler()
 
         db.autosave(self.scheduler)
@@ -65,6 +70,7 @@ class Bot(BotBase):
     async def on_ready(self):
         if not self.ready:
             self.scheduler.start()
+            self.guild = self.get_guild(GUILD_ID)
 
             while not self.cogs_ready.all_ready():
                 await sleep(0.5)
@@ -73,7 +79,6 @@ class Bot(BotBase):
             print("Bot ready")
         else:
             print("Bot Reconnected")
-    
 
     async def on_message(self, message):
         if not message.author.bot:

@@ -22,6 +22,7 @@ After this get your bot token on discord and make a file named ```token.0``` in 
 
 ## Log
 * **V0.2** = Made some changes so the bot can be used on repl.it or a host
+* **V0.3** = Made the lowercases functs and a embed chat when the bot get ready > Check libs/cogs/welcome.py and libs/cogs/__init__.py if you will use in your server
 
 
 
