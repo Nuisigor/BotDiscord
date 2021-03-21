@@ -29,7 +29,7 @@ class Welcome(Cog):
         Cog(intents= intents)
 
         embed = Embed(title="O bot está online!", description="Utilize o chat <#750083596882018367> para conversar com outros membros" ,color=0x11ff00)
-        embed.add_field(name="Para obter ajuda sobre as funcionalidades do bot digite", value=f"> +HelpAulas", inline=False)
+        embed.add_field(name="Para obter ajuda sobre as funcionalidades do bot digite", value=f"> {self.bot.prefix}HelpAulas", inline=False)
         embed.set_thumbnail(url=self.bot.guild.icon_url)
         embed.set_footer(text=f"Discord da panelinha V{self.bot.VERSION}")
         channel = self.bot.get_channel(CHANNEL_ID)
