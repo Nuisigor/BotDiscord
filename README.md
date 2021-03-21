@@ -1,6 +1,6 @@
 #  Discord Bot
 
-This bot was made for my class discord so we can use to get the Google Meet's Links to the classes.
+This bot was made for my class discord server so we can use to get the Google Meet's Links to the classes.
 
 It uses a SQL database to keep informations from Aulas that can be register and showed in the server.
 
