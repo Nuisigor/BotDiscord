@@ -1,8 +1,8 @@
 from discord.ext.commands import Cog
 from discord.ext.commands import command
 from discord import Embed, File
-from ..db import db
 
+from ..db import db
 
 MEETLINK = "https://meet.google.com/"
 
@@ -27,8 +27,8 @@ class Aulas(Cog):
         if len(register_content[0]) > 3 or register_content[1][0:24] != MEETLINK:
             embed= Embed(title='Não foi possível registrar aula', description='Verifique as instruções de como utilizar o bot', color=0x0011ff)
             embed.set_thumbnail(url=ctx.guild.icon_url)
-            embed.add_field(name= 'Instruções',value=f'{self.bot.prefix}RegAula Matéria Link', inline=True)
-            embed.add_field(name = 'Exemplo',value=f'{self.bot.prefix}RegAula POO https://meet.google.com/znc-asxa-uvw', inline=False)
+            embed.add_field(name= 'Instruções',value='{self.bot.prefix}RegAula Matéria Link', inline=True)
+            embed.add_field(name = 'Exemplo',value='{self.bot.prefix}RegAula POO https://meet.google.com/znc-asxa-uvw', inline=False)
             embed.set_footer(text='Cada matéria pode aceitar 3 caracteres apenas')
             await ctx.send(embed=embed)
         
