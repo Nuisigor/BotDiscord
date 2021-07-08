@@ -3,6 +3,7 @@ from asyncio import sleep
 
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 from discord.ext.commands import Bot as BotBase
+import discord
 from ..db import db
 
 
@@ -10,8 +11,9 @@ from ..db import db
 
 PREFIX = "-"
 OWNER_IDS = [241619682443001856]
-GUILD_ID = 750083596882018364
-COGS = ["aulas", "welcome"]
+GUILD_ID = 620693436408004619
+# GUILD_ID = 750083596882018364
+COGS = ["embeds", "aulas"]
 
 class Ready(object):
     def __init__(self):
@@ -77,6 +79,7 @@ class Bot(BotBase):
 
             self.ready = True
             print("Bot ready")
+        
         else:
             print("Bot Reconnected")
 
